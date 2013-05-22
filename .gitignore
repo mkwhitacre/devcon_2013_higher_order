@@ -1,1 +1,14 @@
 target/
+**/.settings
+**/.project
+**/.classpath
+**/.clover
+**/bin
+**/target
+**/.DS_store
+**/.vagrant
+.settings
+.project
+.classpath
+.idea
+*.iml

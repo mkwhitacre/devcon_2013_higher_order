@@ -1,0 +1,19 @@
+{
+"namespace": "com.mkwhit.avro",
+"name": "Game",
+"type": "record",
+"fields": [
+  {"name": "name", "type": ["string", "null"] },
+  {"name": "platform", "type": ["string", "null"]},
+  {"name": "score", "type": ["int", "null"]},
+  {"name": "user_score", "type": ["float", "null"]},
+  {"name": "publisher", "type": ["string", "null"] },
+  {"name": "genre", "type": ["string", "null"]},
+  {"name": "year", "type": ["int", "null"]},
+  {"name": "position", "type": ["int", "null"]},
+  {"name": "na_sales", "type": ["float", "null"]},
+  {"name": "europe_sales", "type": ["float", "null"]},
+  {"name": "japan_sales", "type": ["float", "null"]},
+  {"name": "row_sales", "type": ["float", "null"]},
+  {"name": "global_sales", "type": ["float", "null"]}]
+}

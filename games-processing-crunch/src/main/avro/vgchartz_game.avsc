@@ -1,0 +1,17 @@
+{
+"namespace": "com.mkwhit.avro",
+"name": "VgChartzGame",
+"type": "record",
+"fields": [
+  {"name": "name", "type": "string", "default": "invalid" },
+  {"name": "platform", "type": "string", "default": "invalid"},
+  {"name": "publisher", "type": "string", "default": "invalid"},
+  {"name": "genre", "type": "string", "default": "invalid"},
+  {"name": "year", "type": "int", "default": -1},
+  {"name": "position", "type": "int", "default": -1},
+  {"name": "na_sales", "type": "float", "default": -1},
+  {"name": "europe_sales", "type": "float", "default": -1},
+  {"name": "japan_sales", "type": "float", "default": -1},
+  {"name": "row_sales", "type": "float", "default": -1},
+  {"name": "global_sales", "type": "float", "default": -1}]
+}

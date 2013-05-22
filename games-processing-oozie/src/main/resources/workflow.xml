@@ -1,0 +1,17 @@
+<workflow-app name="crunch-wf" xmlns="uri:oozie:workflow:0.2">
+    <start to="crunch-job"/>
+    <action name="crunch-job">
+        <java>
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <main-class>com.cerner.mw010351.CalculateSquaresExample</main-class>
+            <arg>${tableName}</arg>
+        </java>
+        <ok to="end"/>
+        <error to="fail"/>
+    </action>
+    <kill name="fail">
+       <message>Something Bad Happened.</message>
+    </kill>
+    <end name="end"/>
+</workflow-app>
