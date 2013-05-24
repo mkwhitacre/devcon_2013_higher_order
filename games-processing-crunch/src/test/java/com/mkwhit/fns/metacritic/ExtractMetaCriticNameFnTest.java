@@ -22,7 +22,7 @@ public class ExtractMetaCriticNameFnTest {
     @Test
     public void getName(){
         String name = "gameName";
-        MetaCriticGame game = ModelHelper.createMetaCriticGame(name, "xbox1", 100, 15.0f);
+        MetaCriticGame game = ModelHelper.createMetaCriticGame(name, 100, 15.0f);
         String key = fn.map(game);
         assertThat(key, is(name.toLowerCase(Locale.US)));
     }

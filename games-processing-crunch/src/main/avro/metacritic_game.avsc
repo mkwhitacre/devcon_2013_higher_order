@@ -4,7 +4,6 @@
 "type": "record",
 "fields": [
   {"name": "name", "type": "string", "default": "invalid" },
-  {"name": "platform", "type": "string", "default": "invalid"},
   {"name": "score", "type": "int", "default": -1},
   {"name": "user_score", "type":"float", "default": -1}]
 }

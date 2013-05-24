@@ -10,8 +10,8 @@ public class ModelHelper {
         return VgChartzGame.newBuilder().setName(name).setPlatform(platform).setGenre(genre).build();
     }
 
-    public static MetaCriticGame createMetaCriticGame(String name, String platform, int score, float userScore){
-        return MetaCriticGame.newBuilder().setName(name).setPlatform(platform).setScore(score).setUserScore(userScore)
+    public static MetaCriticGame createMetaCriticGame(String name, int score, float userScore){
+        return MetaCriticGame.newBuilder().setName(name).setScore(score).setUserScore(userScore)
                 .build();
     }
 

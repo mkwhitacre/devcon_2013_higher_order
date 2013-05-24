@@ -1,0 +1,1 @@
+hadoop jar /vagrant/games-processing-crunch/target/games-processing-crunch-1.0-SNAPSHOT.jar com.mkwhit.Main /example/game_bigdata/game_bigdata/vgchartz.com/data/vgchartz.com_processed /example/game_bigdata/game_bigdata/metacritic.com/data/metacritic.com_processed /example/output

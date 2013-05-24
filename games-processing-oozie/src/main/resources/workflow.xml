@@ -1,11 +1,13 @@
-<workflow-app name="crunch-wf" xmlns="uri:oozie:workflow:0.2">
-    <start to="crunch-job"/>
-    <action name="crunch-job">
+<workflow-app name="game-wf" xmlns="uri:oozie:workflow:0.4">
+    <start to="game-job"/>
+    <action name="game-job">
         <java>
             <job-tracker>${jobTracker}</job-tracker>
             <name-node>${nameNode}</name-node>
-            <main-class>com.cerner.mw010351.CalculateSquaresExample</main-class>
-            <arg>${tableName}</arg>
+            <main-class>com.mkwhit.Main</main-class>
+            <arg>${vgChartzPath}</arg>
+            <arg>${metacriticPath}</arg>
+            <arg>${outputPath}</arg>
         </java>
         <ok to="end"/>
         <error to="fail"/>

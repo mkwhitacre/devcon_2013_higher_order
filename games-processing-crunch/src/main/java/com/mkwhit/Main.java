@@ -3,25 +3,34 @@ package com.mkwhit;
 import com.mkwhit.avro.Game;
 import com.mkwhit.avro.MetaCriticGame;
 import com.mkwhit.avro.VgChartzGame;
+import com.mkwhit.fns.CalculateAvgSalesFn;
+import com.mkwhit.fns.CalculateAvgSalesFn.SalesType;
+import com.mkwhit.fns.CalculateAvgScoreFn;
+import com.mkwhit.fns.CalculateAvgScoreFn.ScoreType;
+import com.mkwhit.fns.CalculateSalesPercentFn;
+import com.mkwhit.fns.CreateGameModelFn;
+import com.mkwhit.fns.ExtractKeyFn;
+import com.mkwhit.fns.ExtractKeyFn.Field;
 import com.mkwhit.fns.metacritic.CreateMetacriticGameFn;
 import com.mkwhit.fns.metacritic.ExtractMetacriticNameFn;
 import com.mkwhit.fns.vgchartz.CreateVGChartzFn;
 import com.mkwhit.fns.vgchartz.ExtractVgChartzNameFn;
 import org.apache.crunch.PCollection;
+import org.apache.crunch.PGroupedTable;
 import org.apache.crunch.PTable;
 import org.apache.crunch.Pair;
 import org.apache.crunch.Pipeline;
 import org.apache.crunch.impl.mr.MRPipeline;
+import org.apache.crunch.io.avro.AvroFileTarget;
 import org.apache.crunch.types.PType;
 import org.apache.crunch.types.avro.Avros;
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-import java.util.Collection;
-
-public class Main implements Tool{
+public class Main implements Tool {
 
     private static final PType<MetaCriticGame> METACRITIC_PTYPE = Avros.records(MetaCriticGame.class);
     private static final PType<VgChartzGame> VG_CHARTZ_GAME_PTYPE_PTYPE = Avros.records(VgChartzGame.class);
@@ -30,7 +39,6 @@ public class Main implements Tool{
     private Configuration config;
 
     public static void main(String[] args) throws Exception {
-        Configuration config = HBaseConfiguration.create();
         int result = ToolRunner.run(HBaseConfiguration.create(), new Main(), args);
         System.exit(result);
     }
@@ -50,6 +58,7 @@ public class Main implements Tool{
 
         String vgChartzPath = args[0];
         String metacriticPath = args[1];
+        String outputPath = args[2];
 
 
         Pipeline pipeline = new MRPipeline(Main.class, getConf());
@@ -65,30 +74,61 @@ public class Main implements Tool{
                 new CreateVGChartzFn(), VG_CHARTZ_GAME_PTYPE_PTYPE);
 
         PCollection<MetaCriticGame> metacriticGames = metacriticRaw.parallelDo("Convert JSON into Metacritic Object",
-                new CreateMetacriticGameFn(), Avros.records(MetaCriticGame.class));
+                new CreateMetacriticGameFn(), METACRITIC_PTYPE);
 
-        PTable<String, MetaCriticGame> keyedMetaCriticGames = metacriticGames.by(new ExtractMetacriticNameFn(), Avros.strings());
-        PTable<String, VgChartzGame> keyedVgChartzGames = vgChartzGames.by(new ExtractVgChartzNameFn(), Avros.strings());
+        //Extract the name of the models to create a PTable keyed on the games name.
+        PTable<String, MetaCriticGame> keyedMetaCriticGames = metacriticGames.by("Extract Name of MetaCritic Game", new ExtractMetacriticNameFn(), Avros.strings());
+        PTable<String, VgChartzGame> keyedVgChartzGames = vgChartzGames.by("Extract Name of VgChartz Game", new ExtractVgChartzNameFn(), Avros.strings());
 
-        //cogroup the values.
-        PTable<String, Pair<Collection<MetaCriticGame>, Collection<VgChartzGame>>> groupedGames = keyedMetaCriticGames.cogroup(keyedVgChartzGames);
+        //perform an inner join of the collections to use the information together.
+        PTable<String, Pair<MetaCriticGame, VgChartzGame>> groupedGames = keyedMetaCriticGames.join(keyedVgChartzGames);
 
+        //convert the separate models into a single one
+        PCollection<Game> gameModels = groupedGames.parallelDo("Create Universal Model Object", new CreateGameModelFn(), GAME_PTYPE);
 
-        //store off main results
+        //store off main results that can be analyzed later.
+        pipeline.write(gameModels, new AvroFileTarget(new Path(outputPath, "combined")));
+        pipeline.write(metacriticGames, new AvroFileTarget(new Path(outputPath, "metacritic")));
+        pipeline.write(vgChartzGames, new AvroFileTarget(new Path(outputPath, "vgchartz")));
 
+        //create new tables keyed off of various attributes like platform, publisher, and genre
+        PTable<String, Game> platformModels = gameModels.by("Extract Platform", new ExtractKeyFn(Field.PLATFORM), Avros.strings());
+        PTable<String, Game> publisherModels = gameModels.by("Extract Publisher", new ExtractKeyFn(Field.PUBLISHER), Avros.strings());
+        PTable<String, Game> genreModels = gameModels.by("Extract Genre", new ExtractKeyFn(Field.GENRE), Avros.strings());
 
-        //Filter out missing sales
+        //group by the keys so that exact values can be calculated
+        PGroupedTable<String, Game> groupedByGenre = genreModels.groupByKey();
+        PGroupedTable<String, Game> groupedByPublisher = publisherModels.groupByKey();
+        PGroupedTable<String, Game> groupedByPlatform = platformModels.groupByKey();
 
-        //filter out unranked games
+        //calculate averages global sales by platform
+        PTable<String, Double> avgSalesByPlatform = groupedByPlatform.parallelDo("Calculate Avg Global Sales by Platform",
+                new CalculateAvgSalesFn(SalesType.GA_SALES), Avros.tableOf(Avros.strings(), Avros.doubles()));
 
+        //calculate the average metacritic score by publisher
+        PTable<String, Double> avgScoresByPublisher = groupedByPublisher.parallelDo("Calculate Avg Editor Score by Platform",
+                new CalculateAvgScoreFn(ScoreType.EDITOR), Avros.tableOf(Avros.strings(), Avros.doubles()));
 
-        ///do the special calculations
-
-
+        //calculate the percentage of global sales done in North America
+        PTable<String, Double> avgPercentSalesByGenre = groupedByGenre.parallelDo("Calculate Percentage of Global Sales Done in North America by Genre",
+                new CalculateSalesPercentFn(SalesType.NA_SALES), Avros.tableOf(Avros.strings(), Avros.doubles()));
 
         pipeline.run();
 
+        System.out.println("Average Global Sales By Platform");
+        for(Pair<String, Double> pair: avgSalesByPlatform.materialize()){
+            System.out.println(pair.first()+":"+pair.second());
+        }
 
+        System.out.println("Average Scores By Publisher");
+        for(Pair<String, Double> pair: avgScoresByPublisher.materialize()){
+            System.out.println(pair.first()+":"+pair.second());
+        }
+
+        System.out.println("Average Percentage North America Sales By Genre");
+        for(Pair<String, Double> pair: avgSalesByPlatform.materialize()){
+            System.out.println(pair.first()+":"+pair.second());
+        }
 
         return 0;
     }

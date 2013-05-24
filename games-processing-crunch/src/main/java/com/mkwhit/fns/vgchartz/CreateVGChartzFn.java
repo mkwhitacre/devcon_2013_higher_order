@@ -19,6 +19,7 @@ public class CreateVGChartzFn extends DoFn <String, VgChartzGame> {
         VgChartzGame game = parseGame(input);
         //only emit if the string represented a game.
         if(game != null){
+            getCounter("VgChartz", "createdgame").increment(1);
             emitter.emit(game);
         }
     }
@@ -54,8 +55,12 @@ public class CreateVGChartzFn extends DoFn <String, VgChartzGame> {
             builder.setPlatform(platform);
 
             //pull off year
-            int year = Integer.valueOf(tds[3].replaceAll("<td>", "").replaceAll("</td>", "").trim());
-            builder.setYear(year);
+            try{
+                int year = Integer.valueOf(tds[3].replaceAll("<td>", "").replaceAll("</td>", "").trim());
+                builder.setYear(year);
+            }catch(NumberFormatException nfe){
+                getCounter("VgChartz", "missingyear").increment(1);
+            }
 
             //pull off platform
             String genre = tds[4].replaceAll("<td>", "").replaceAll("</td>", "").trim();
@@ -92,7 +97,7 @@ public class CreateVGChartzFn extends DoFn <String, VgChartzGame> {
     }
 
     private boolean representsGame(String rawString){
-        return rawString.contains("http://www.vgchartz.com/game/");
+        return rawString.contains("http://www.vgchartz.com/game/") && !rawString.startsWith("<!DOCTYPE html PUBLIC");
     }
 
     private float extractSales(String sales){

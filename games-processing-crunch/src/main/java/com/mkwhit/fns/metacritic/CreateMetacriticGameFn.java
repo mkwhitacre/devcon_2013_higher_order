@@ -33,6 +33,7 @@ public class CreateMetacriticGameFn extends DoFn <String, MetaCriticGame>{
         try {
             List<MetaCriticGamePOJO> games = parseGames(input);
             for(MetaCriticGamePOJO pojo: games){
+                getCounter("Metacritic", "createdGames").increment(1);
                 emitter.emit(adaptPOJO(pojo));
             }
         } catch (IOException e) {
@@ -47,8 +48,16 @@ public class CreateMetacriticGameFn extends DoFn <String, MetaCriticGame>{
     private MetaCriticGame adaptPOJO(MetaCriticGamePOJO pojo){
         Builder builder = MetaCriticGame.newBuilder();
         builder.setName(pojo.getGameName());
-        builder.setScore(Integer.valueOf(pojo.getMetacriticScore()));
+        try{
+            builder.setScore(Integer.valueOf(pojo.getMetacriticScore()));
+        }catch(NumberFormatException nfe){
+            getCounter("Metacritic", "missingscore").increment(1);
+        }
+        try{
         builder.setUserScore(Float.valueOf(pojo.getUserScore()));
+        }catch(NumberFormatException nfe){
+            getCounter("Metacritic", "missinguserscore").increment(1);
+        }
         return builder.build();
     }
 }
