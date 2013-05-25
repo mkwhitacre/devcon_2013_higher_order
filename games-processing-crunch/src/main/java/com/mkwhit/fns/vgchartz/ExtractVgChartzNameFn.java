@@ -12,6 +12,7 @@ public class ExtractVgChartzNameFn extends MapFn<VgChartzGame, String> {
     @Override
     public String map(final VgChartzGame input) {
         //normalize the name to lowercase to ensure matches
+        //TODO add in smarts to remove spaces + non alpha-numeric characters
         return input.getName().toString().toLowerCase(Locale.US);
     }
 }

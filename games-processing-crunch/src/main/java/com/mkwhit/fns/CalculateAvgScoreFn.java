@@ -5,16 +5,19 @@ import org.apache.crunch.MapFn;
 import org.apache.crunch.Pair;
 
 
-public class CalculateAvgScoreFn extends MapFn<Pair<String, Iterable<Game>>,Pair<String, Double>> {
+/**
+ * Calculates the average score per item as specified by a {@link ScoreType}.
+ */
+public class CalculateAvgScoreFn extends MapFn<Pair<String, Iterable<Game>>, Pair<String, Double>> {
 
-    public static enum ScoreType{
+    public static enum ScoreType {
         EDITOR,
         USER,
     }
 
     private final ScoreType type;
 
-    public CalculateAvgScoreFn(ScoreType type){
+    public CalculateAvgScoreFn(ScoreType type) {
         this.type = type;
     }
 
@@ -24,11 +27,11 @@ public class CalculateAvgScoreFn extends MapFn<Pair<String, Iterable<Game>>,Pair
         long count = 0;
         double sum = 0;
 
-        for(Game game: input.second()){
+        for (Game game : input.second()) {
             float score = 0;
 
             //note a more functional approach would be to have this injected as a function.
-            switch(type){
+            switch (type) {
                 case USER:
                     score = game.getUserScore();
                     break;
@@ -38,12 +41,14 @@ public class CalculateAvgScoreFn extends MapFn<Pair<String, Iterable<Game>>,Pair
                 default:
             }
 
-            if(score > 0){
+            if (score >= 0) {
                 count++;
-                sum+=score;
+                sum += score;
+            } else {
+                getCounter("AvgScore", "missingscore").increment(1);
             }
         }
 
-        return new Pair<String, Double>(input.first(), count != 0 ? sum/count: 0);
+        return new Pair<String, Double>(input.first(), count != 0 ? sum / count : 0);
     }
 }

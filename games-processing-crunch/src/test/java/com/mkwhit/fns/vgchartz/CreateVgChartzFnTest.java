@@ -2,15 +2,23 @@ package com.mkwhit.fns.vgchartz;
 
 import com.mkwhit.avro.VgChartzGame;
 import org.apache.crunch.Emitter;
+import org.apache.hadoop.mapreduce.Counter;
+import org.apache.hadoop.mapreduce.TaskInputOutputContext;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.List;
 import java.util.LinkedList;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class CreateVgChartzFnTest {
 
     private static final String EXAMPLE_ROW = "<tr> <td>1</td> <td><a href=\"http://www.vgchartz.com/game/50395/super-mario-3d-land/\">Super Mario 3D Land</a></td> <td><a href=\"http://www.vgchartz.com/platform/42/nintendo-3ds/\">3DS</a></td> <td>2011</td> <td>Platform</td> <td>Nintendo</td> <td><center>3.68</center></td> <td><center>2.13</center></td> <td><center>1.83</center></td> <td><center>0.54</center></td> <td><center>8.18</center></td> </tr>";
@@ -30,9 +38,18 @@ public class CreateVgChartzFnTest {
     private CreateVGChartzFn fn;
     private FakeEmitter emitter;
 
+    @Mock
+    private TaskInputOutputContext context;
+    @Mock
+    private Counter counter;
+
     @Before
     public void createFn(){
+        when(context.getCounter(Mockito.<Enum>anyObject())).thenReturn(counter);
+        when(context.getCounter(anyString(), anyString())).thenReturn(counter);
+
         fn = new CreateVGChartzFn();
+        fn.setContext(context);
         emitter = new FakeEmitter();
     }
 

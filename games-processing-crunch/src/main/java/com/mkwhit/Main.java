@@ -30,6 +30,9 @@ import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
+/**
+ * Main execution point of the project which kicks off the processing pipeline.
+ */
 public class Main implements Tool {
 
     private static final PType<MetaCriticGame> METACRITIC_PTYPE = Avros.records(MetaCriticGame.class);
@@ -59,7 +62,6 @@ public class Main implements Tool {
         String vgChartzPath = args[0];
         String metacriticPath = args[1];
         String outputPath = args[2];
-
 
         Pipeline pipeline = new MRPipeline(Main.class, getConf());
 

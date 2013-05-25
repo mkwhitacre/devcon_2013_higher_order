@@ -13,12 +13,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <jdk.version>1.6</jdk.version>
-        <hadoopCDHMRVersion>2.0.0-mr1-cdh4.1.1</hadoopCDHMRVersion>
-        <hadoopCDHVersion>2.0.0-cdh4.1.1</hadoopCDHVersion>
-        <hbaseCDHVersion>0.92.1-cdh4.1.1</hbaseCDHVersion>
-        <zookeeperCDHVersion>3.4.3-cdh4.1.1</zookeeperCDHVersion>
-        <crunchVersion>0.6.0-cerner-SNAPSHOT</crunchVersion>
+        <hadoopCDHMRVersion>2.0.0-mr1-cdh4.2.1</hadoopCDHMRVersion>
+        <hadoopCDHVersion>2.0.0-cdh4.2.1</hadoopCDHVersion>
+        <hbaseCDHVersion>0.94.2-cdh4.2.1</hbaseCDHVersion>
+        <zookeeperCDHVersion>3.4.5-cdh4.2.1</zookeeperCDHVersion>
+        <crunchVersion>0.6.0-cerner</crunchVersion>
         <jackson.version>1.9.9</jackson.version>
+        <mockito.version>1.9.5</mockito.version>
     </properties>
 
     <modules>
@@ -57,6 +58,11 @@
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>4.10</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>${mockito.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.codehaus.jackson</groupId>

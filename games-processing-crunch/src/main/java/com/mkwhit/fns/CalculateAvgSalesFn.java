@@ -5,9 +5,15 @@ import org.apache.crunch.MapFn;
 import org.apache.crunch.Pair;
 
 
-public class CalculateAvgSalesFn extends MapFn<Pair<String, Iterable<Game>>,Pair<String, Double>> {
+/**
+ * Function which calculates the average sales per entry based on the specified {@link SalesType}.
+ */
+public class CalculateAvgSalesFn extends MapFn<Pair<String, Iterable<Game>>, Pair<String, Double>> {
 
-    public static enum SalesType{
+    /**
+     * Enumeration of Sales Types
+     */
+    public static enum SalesType {
         GA_SALES,
         NA_SALES,
         EU_SALES,
@@ -17,7 +23,12 @@ public class CalculateAvgSalesFn extends MapFn<Pair<String, Iterable<Game>>,Pair
 
     private final SalesType type;
 
-    public CalculateAvgSalesFn(SalesType type){
+    /**
+     * Creates a function which will calculate the average sales of the specified {@code type}
+     *
+     * @param type the type of sales to average.
+     */
+    public CalculateAvgSalesFn(SalesType type) {
         this.type = type;
     }
 
@@ -27,11 +38,11 @@ public class CalculateAvgSalesFn extends MapFn<Pair<String, Iterable<Game>>,Pair
         long count = 0;
         double sum = 0;
 
-        for(Game game: input.second()){
+        for (Game game : input.second()) {
             float sales = 0;
 
             //note a more functional approach would be to have this injected as a function.
-            switch(type){
+            switch (type) {
                 case GA_SALES:
                     sales = game.getGlobalSales();
                     break;
@@ -50,12 +61,14 @@ public class CalculateAvgSalesFn extends MapFn<Pair<String, Iterable<Game>>,Pair
                 default:
             }
 
-            if(sales > 0){
+            if (sales > 0) {
                 count++;
-                sum+=sales;
+                sum += sales;
+            }else{
+                getCounter("AvgSales", "missingsales").increment(1);
             }
         }
 
-        return new Pair<String, Double>(input.first(), count != 0 ? sum/count: 0);
+        return new Pair<String, Double>(input.first(), count != 0 ? sum / count : 0);
     }
 }

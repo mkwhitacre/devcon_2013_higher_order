@@ -3,15 +3,24 @@ package com.mkwhit.fns.metacritic;
 
 import com.mkwhit.avro.MetaCriticGame;
 import org.apache.crunch.Emitter;
+import org.apache.hadoop.mapreduce.Counter;
+import org.apache.hadoop.mapreduce.TaskInputOutputContext;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class CreateMetacriticGameFnTest {
 
     private static final String EXAMPLE_JSON = "[{\"gameName\":\"Ace Combat: Assault Horizon Legacy\",\"metacriticScore\":\"71\",\"userScore\":\"7.7\"}]";
@@ -22,9 +31,19 @@ public class CreateMetacriticGameFnTest {
     private CreateMetacriticGameFn fn;
     private FakeEmitter emitter;
 
+    @Mock
+    private TaskInputOutputContext context;
+    @Mock
+    private Counter counter;
+
     @Before
     public void create(){
+
+        when(context.getCounter(Mockito.<Enum>anyObject())).thenReturn(counter);
+        when(context.getCounter(anyString(), anyString())).thenReturn(counter);
+
         fn = new CreateMetacriticGameFn();
+        fn.setContext(context);
         fn.initialize();
         emitter = new FakeEmitter();
     }

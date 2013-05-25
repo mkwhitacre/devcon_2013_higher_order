@@ -5,10 +5,16 @@ import com.mkwhit.fns.CalculateAvgSalesFn.SalesType;
 import org.apache.crunch.MapFn;
 import org.apache.crunch.Pair;
 
+/**
+ * Calculates the ratio of sales for a specific location to the overall global sales.
+ */
 public class CalculateSalesPercentFn extends MapFn<Pair<String, Iterable<Game>>,Pair<String, Double>> {
 
     private final SalesType type;
 
+    /**
+     * The type of sales to calculate the ratio of.
+     */
     public CalculateSalesPercentFn(SalesType type){
         this.type = type;
     }
