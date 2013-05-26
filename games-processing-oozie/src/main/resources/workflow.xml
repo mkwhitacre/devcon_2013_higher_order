@@ -1,5 +1,12 @@
 <workflow-app name="game-wf" xmlns="uri:oozie:workflow:0.4">
-    <start to="game-job"/>
+    <start to="clear-output"/>
+    <action name="clear-output">
+        <fs>
+            <delete path='${outputPath}'/>
+        </fs>
+        <ok to="game-job"/>
+        <error to="fail"/>
+    </action>
     <action name="game-job">
         <java>
             <job-tracker>${jobTracker}</job-tracker>
@@ -13,7 +20,7 @@
         <error to="fail"/>
     </action>
     <kill name="fail">
-       <message>Something Bad Happened.</message>
+        <message>Populous Processing App failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
     </kill>
     <end name="end"/>
 </workflow-app>

@@ -128,7 +128,7 @@ public class Main implements Tool {
         }
 
         System.out.println("Average Percentage North America Sales By Genre");
-        for(Pair<String, Double> pair: avgSalesByPlatform.materialize()){
+        for(Pair<String, Double> pair: avgPercentSalesByGenre.materialize()){
             System.out.println(pair.first()+":"+pair.second());
         }
 

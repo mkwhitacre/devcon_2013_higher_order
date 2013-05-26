@@ -8,8 +8,13 @@ xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assemb
     <fileSets>
         <fileSet>
             <useDefaultExcludes>true</useDefaultExcludes>
+            <directory>${project.basedir}/../game_bigdata/</directory>
+            <outputDirectory>/data</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <useDefaultExcludes>true</useDefaultExcludes>
             <directory>${project.basedir}/src/main/resources</directory>
-             <outputDirectory>/</outputDirectory>
+            <outputDirectory>/</outputDirectory>
         </fileSet>
     </fileSets>
     <dependencySets>
