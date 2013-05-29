@@ -1,9 +1,9 @@
-package com.mkwhit.fns;
+package com.mkwhitacre.fns;
 
-import com.mkwhit.avro.Game;
-import com.mkwhit.avro.Game.Builder;
-import com.mkwhit.avro.MetaCriticGame;
-import com.mkwhit.avro.VgChartzGame;
+import com.mkwhitacre.avro.Game;
+import com.mkwhitacre.avro.Game.Builder;
+import com.mkwhitacre.avro.MetaCriticGame;
+import com.mkwhitacre.avro.VgChartzGame;
 import org.apache.crunch.MapFn;
 import org.apache.crunch.Pair;
 

@@ -11,7 +11,7 @@
         <java>
             <job-tracker>${jobTracker}</job-tracker>
             <name-node>${nameNode}</name-node>
-            <main-class>com.mkwhit.Main</main-class>
+            <main-class>com.mkwhitacre.Main</main-class>
             <arg>${vgChartzPath}</arg>
             <arg>${metacriticPath}</arg>
             <arg>${outputPath}</arg>
@@ -20,7 +20,7 @@
         <error to="fail"/>
     </action>
     <kill name="fail">
-        <message>Populous Processing App failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
+        <message>Games Processing App failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
     </kill>
     <end name="end"/>
 </workflow-app>

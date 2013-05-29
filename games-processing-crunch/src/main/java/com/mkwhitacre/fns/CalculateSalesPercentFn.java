@@ -1,7 +1,7 @@
-package com.mkwhit.fns;
+package com.mkwhitacre.fns;
 
-import com.mkwhit.avro.Game;
-import com.mkwhit.fns.CalculateAvgSalesFn.SalesType;
+import com.mkwhitacre.avro.Game;
+import com.mkwhitacre.fns.CalculateAvgSalesFn.SalesType;
 import org.apache.crunch.MapFn;
 import org.apache.crunch.Pair;
 

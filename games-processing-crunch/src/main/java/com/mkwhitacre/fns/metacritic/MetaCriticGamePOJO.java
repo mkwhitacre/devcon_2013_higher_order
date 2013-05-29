@@ -1,6 +1,4 @@
-package com.mkwhit.fns.metacritic;
-
-import java.util.List;
+package com.mkwhitacre.fns.metacritic;
 
 class MetaCriticGamePOJO {
 

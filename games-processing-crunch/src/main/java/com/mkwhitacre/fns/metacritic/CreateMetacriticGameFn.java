@@ -1,8 +1,8 @@
-package com.mkwhit.fns.metacritic;
+package com.mkwhitacre.fns.metacritic;
 
 
-import com.mkwhit.avro.MetaCriticGame;
-import com.mkwhit.avro.MetaCriticGame.Builder;
+import com.mkwhitacre.avro.MetaCriticGame;
+import com.mkwhitacre.avro.MetaCriticGame.Builder;
 import org.apache.crunch.CrunchRuntimeException;
 import org.apache.crunch.DoFn;
 import org.apache.crunch.Emitter;

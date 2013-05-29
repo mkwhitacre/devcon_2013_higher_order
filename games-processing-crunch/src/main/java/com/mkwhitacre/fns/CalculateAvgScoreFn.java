@@ -1,6 +1,6 @@
-package com.mkwhit.fns;
+package com.mkwhitacre.fns;
 
-import com.mkwhit.avro.Game;
+import com.mkwhitacre.avro.Game;
 import org.apache.crunch.MapFn;
 import org.apache.crunch.Pair;
 

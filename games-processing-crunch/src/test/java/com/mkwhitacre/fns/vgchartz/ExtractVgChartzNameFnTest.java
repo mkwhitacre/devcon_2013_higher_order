@@ -1,7 +1,7 @@
-package com.mkwhit.fns.vgchartz;
+package com.mkwhitacre.fns.vgchartz;
 
-import com.mkwhit.ModelHelper;
-import com.mkwhit.avro.VgChartzGame;
+import com.mkwhitacre.ModelHelper;
+import com.mkwhitacre.avro.VgChartzGame;
 import org.junit.Before;
 import org.junit.Test;
 

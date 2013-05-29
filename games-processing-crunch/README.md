@@ -32,11 +32,11 @@ Running
 
 To run the example enter the following command on the Hadoop node:
 
-`hadoop jar game-processing-crunch-1.0-SNAPSHOT.jar com.mkwhit.Main <VgChartz HTML directory in HDFS> <Metacritic JSON directory in HDFS> <Output Destination>`
+`hadoop jar game-processing-crunch-1.0-SNAPSHOT.jar com.mkwhitacre.Main <VgChartz HTML directory in HDFS> <Metacritic JSON directory in HDFS> <Output Destination>`
 
 So as an example the command might be:
 
-`hadoop jar games-processing-crunch-1.0-SNAPSHOT.jar com.mkwhit.Main /example/game_bigdata/game_bigdata/vgchartz.com/data/vgchartz.com_processed /example/game_bigdata/game_bigdata/metacritic.com/data/metacritic.com_processed /example/output`
+`hadoop jar games-processing-crunch-1.0-SNAPSHOT.jar com.mkwhitacre.Main /example/game_bigdata/game_bigdata/vgchartz.com/data/vgchartz.com_processed /example/game_bigdata/game_bigdata/metacritic.com/data/metacritic.com_processed /example/output`
 
 You can use the link provided to watch the progress of the job.
 
@@ -62,4 +62,4 @@ To clean up the newly created table you would use Hadoop FS command to execute t
 
 
 
-hadoop jar /vagrant/games-processing-crunch/target/games-processing-crunch-1.0-SNAPSHOT.jar com.mkwhit.Main /example/game_bigdata/game_bigdata/vgchartz.com/data/vgchartz.com_processed /example/game_bigdata/game_bigdata/metacritic.com/data/metacritic.com_processed /example/output
+hadoop jar /vagrant/games-processing-crunch/target/games-processing-crunch-1.0-SNAPSHOT.jar com.mkwhitacre.Main /example/game_bigdata/game_bigdata/vgchartz.com/data/vgchartz.com_processed /example/game_bigdata/game_bigdata/metacritic.com/data/metacritic.com_processed /example/output

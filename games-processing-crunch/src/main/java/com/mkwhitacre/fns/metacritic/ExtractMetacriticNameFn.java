@@ -1,8 +1,7 @@
-package com.mkwhit.fns.metacritic;
+package com.mkwhitacre.fns.metacritic;
 
-import com.mkwhit.avro.MetaCriticGame;
+import com.mkwhitacre.avro.MetaCriticGame;
 import org.apache.crunch.MapFn;
-import org.apache.crunch.Pair;
 
 import java.util.Locale;
 

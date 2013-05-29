@@ -21,7 +21,7 @@ xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assemb
         <dependencySet>
             <outputDirectory>workflow/lib</outputDirectory>
             <includes>
-                <include>com.mkwhit:games-processing-crunch</include>
+                <include>com.mkwhitacre:games-processing-crunch</include>
             </includes>
             <outputFileNameMapping>${artifact.artifactId}-${project.parent.version}.${artifact.extension}</outputFileNameMapping>
         </dependencySet>

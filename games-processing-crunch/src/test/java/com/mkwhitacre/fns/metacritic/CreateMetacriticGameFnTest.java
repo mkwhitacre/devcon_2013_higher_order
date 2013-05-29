@@ -1,7 +1,7 @@
-package com.mkwhit.fns.metacritic;
+package com.mkwhitacre.fns.metacritic;
 
 
-import com.mkwhit.avro.MetaCriticGame;
+import com.mkwhitacre.avro.MetaCriticGame;
 import org.apache.crunch.Emitter;
 import org.apache.hadoop.mapreduce.Counter;
 import org.apache.hadoop.mapreduce.TaskInputOutputContext;

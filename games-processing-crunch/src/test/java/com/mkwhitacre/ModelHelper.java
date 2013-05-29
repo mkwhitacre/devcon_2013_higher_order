@@ -1,8 +1,8 @@
-package com.mkwhit;
+package com.mkwhitacre;
 
 
-import com.mkwhit.avro.MetaCriticGame;
-import com.mkwhit.avro.VgChartzGame;
+import com.mkwhitacre.avro.MetaCriticGame;
+import com.mkwhitacre.avro.VgChartzGame;
 
 public class ModelHelper {
 

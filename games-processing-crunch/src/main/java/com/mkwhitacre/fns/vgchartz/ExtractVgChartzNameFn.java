@@ -1,6 +1,6 @@
-package com.mkwhit.fns.vgchartz;
+package com.mkwhitacre.fns.vgchartz;
 
-import com.mkwhit.avro.VgChartzGame;
+import com.mkwhitacre.avro.VgChartzGame;
 import org.apache.crunch.MapFn;
 
 import java.util.Locale;

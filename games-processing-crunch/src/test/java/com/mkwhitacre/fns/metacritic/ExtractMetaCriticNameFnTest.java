@@ -1,7 +1,7 @@
-package com.mkwhit.fns.metacritic;
+package com.mkwhitacre.fns.metacritic;
 
-import com.mkwhit.ModelHelper;
-import com.mkwhit.avro.MetaCriticGame;
+import com.mkwhitacre.ModelHelper;
+import com.mkwhitacre.avro.MetaCriticGame;
 import org.junit.Before;
 import org.junit.Test;
 
