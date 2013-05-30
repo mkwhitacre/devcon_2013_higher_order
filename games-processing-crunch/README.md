@@ -5,9 +5,6 @@ The purpose of this project is to provide a runnable example of a Crunch process
 to help users understand how to compose complex pipelines.  The processing done in this project is not the most efficient, error proof, or what would be
 considered production quality code.  The purpose of this code is to help individual easily understand the what the code is doing.
 
-This project exists are part of the [Getting Started Guide](https://wiki.ucern.com/display/pophealth/Getting+Started+with+Apache+Crunch).
-For more information on Crunch and how to get started check there.
-
 Building
 ========
 
@@ -36,7 +33,7 @@ To run the example enter the following command on the Hadoop node:
 
 So as an example the command might be:
 
-`hadoop jar games-processing-crunch-1.0-SNAPSHOT.jar com.mkwhitacre.Main /example/game_bigdata/game_bigdata/vgchartz.com/data/vgchartz.com_processed /example/game_bigdata/game_bigdata/metacritic.com/data/metacritic.com_processed /example/output`
+`hadoop jar games-processing-crunch-1.0-SNAPSHOT.jar /example/game_bigdata/game_bigdata/vgchartz.com/data/vgchartz.com_processed /example/game_bigdata/game_bigdata/metacritic.com/data/metacritic.com_processed /example/output`
 
 You can use the link provided to watch the progress of the job.
 
