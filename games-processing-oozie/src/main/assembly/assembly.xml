@@ -13,6 +13,11 @@ xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assemb
         </fileSet>
         <fileSet>
             <useDefaultExcludes>true</useDefaultExcludes>
+            <directory>${project.basedir}/../games-processing-crunch/src/main/avro</directory>
+            <outputDirectory>/models</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <useDefaultExcludes>true</useDefaultExcludes>
             <directory>${project.basedir}/src/main/resources</directory>
             <outputDirectory>/</outputDirectory>
         </fileSet>

@@ -12,3 +12,4 @@ target/
 .classpath
 .idea
 *.iml
+*derby.log
