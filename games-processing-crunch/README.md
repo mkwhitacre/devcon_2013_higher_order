@@ -29,7 +29,7 @@ Running
 
 To run the example enter the following command on the Hadoop node:
 
-`hadoop jar game-processing-crunch-1.0-SNAPSHOT.jar com.mkwhitacre.Main <VgChartz HTML directory in HDFS> <Metacritic JSON directory in HDFS> <Output Destination>`
+`hadoop jar game-processing-crunch-1.0-SNAPSHOT.jar <VgChartz HTML directory in HDFS> <Metacritic JSON directory in HDFS> <Output Destination>`
 
 So as an example the command might be:
 
