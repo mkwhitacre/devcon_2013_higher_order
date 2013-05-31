@@ -29,6 +29,7 @@ public class CreateGameModelFn extends MapFn<Pair<String, Pair<MetaCriticGame, V
             if(mcGame == null){
                 builder.setName(vgGame.getName());
             }
+            builder.setPublisher(vgGame.getPublisher());
             builder.setEuropeSales(vgGame.getEuropeSales());
             builder.setNaSales(vgGame.getNaSales());
             builder.setJapanSales(vgGame.getJapanSales());

@@ -12,6 +12,7 @@
             <job-tracker>${jobTracker}</job-tracker>
             <name-node>${nameNode}</name-node>
             <main-class>com.mkwhitacre.Main</main-class>
+            <java-opts></java-opts>
             <arg>${vgChartzPath}</arg>
             <arg>${metacriticPath}</arg>
             <arg>${outputPath}</arg>
