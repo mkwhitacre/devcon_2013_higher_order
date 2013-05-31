@@ -1,7 +1,7 @@
 game_bigdata
 ============
 
-Data was acquired by the wonderfully helpful [Bryan Baugher](http://github.cerner.com/BB021949) and the raw version of it is [here](http://github.cerner.com/BB021949/game_bigdata).  Normally this 
+Data was acquired by the wonderfully helpful coworker with some handy Ruby scripts.  Normally this 
 data would be acquired for processing in a more appropriate manner like a live feed or Sqoop but since we don't generally have access to game data
 he wrote a scraper.
 
