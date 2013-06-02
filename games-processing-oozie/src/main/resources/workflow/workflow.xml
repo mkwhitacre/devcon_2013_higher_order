@@ -12,17 +12,17 @@
             <job-tracker>${jobTracker}</job-tracker>
             <name-node>${nameNode}</name-node>
             <main-class>com.mkwhitacre.Main</main-class>
-            <java-opts></java-opts>
+            <java-opts>${javaOpts}</java-opts>
             <arg>${vgChartzPath}</arg>
             <arg>${metacriticPath}</arg>
             <arg>${outputPath}</arg>
         </java>
-        <ok to="create-vgchartz-table"/>
+        <ok to="end"/>
         <error to="fail"/>
     </action>
     <action name="create-vgchartz-table">
-        <hive xmlns="uri:oozie:hive-action:0.4">
-            <job-traker>${jobTracker}</job-tracker>
+        <hive xmlns="uri:oozie:hive-action:0.3">
+            <job-tracker>${jobTracker}</job-tracker>
             <name-node>${nameNode}</name-node>
             <script>hive/create_avro_table.q</script>
             <param>ModelPath=${root}/models/vgchartz_game.avsc</param>
@@ -33,8 +33,8 @@
         <error to="fail"/>
     </action>
     <action name="create-metacritic-table">
-        <hive xmlns="uri:oozie:hive-action:0.4">
-            <job-traker>${jobTracker}</job-tracker>
+        <hive xmlns="uri:oozie:hive-action:0.3">
+            <job-tracker>${jobTracker}</job-tracker>
             <name-node>${nameNode}</name-node>
             <script>hive/create_avro_table.q</script>
             <param>ModelPath=${root}/models/metacritic_game.avsc</param>
@@ -45,8 +45,8 @@
         <error to="fail"/>
     </action>
     <action name="create-game-table">
-        <hive xmlns="uri:oozie:hive-action:0.4">
-            <job-traker>${jobTracker}</job-tracker>
+        <hive xmlns="uri:oozie:hive-action:0.3">
+            <job-tracker>${jobTracker}</job-tracker>
             <name-node>${nameNode}</name-node>
             <script>hive/create_avro_table.q</script>
             <param>ModelPath=${root}/models/game.avsc</param>
