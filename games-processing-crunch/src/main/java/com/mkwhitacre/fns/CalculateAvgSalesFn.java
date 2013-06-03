@@ -41,7 +41,6 @@ public class CalculateAvgSalesFn extends MapFn<Pair<String, Iterable<Game>>, Pai
         for (Game game : input.second()) {
             float sales = 0;
 
-            //note a more functional approach would be to have this injected as a function.
             switch (type) {
                 case GA_SALES:
                     sales = game.getGlobalSales();

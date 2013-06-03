@@ -6,11 +6,14 @@ import org.apache.crunch.MapFn;
 
 import java.util.Locale;
 
+/**
+ * Pulls a key value off of a {@link Game} instance based on one of its fields.  The field to use is specified by the {@link Field}.
+ */
 public class ExtractKeyFn extends MapFn<Game, String> {
 
     private static final long serialVersionUID = 5935475957482738801L;
 
-    public static enum Field{
+    public static enum Field {
         PLATFORM,
         PUBLISHER,
         GENRE,
@@ -18,7 +21,7 @@ public class ExtractKeyFn extends MapFn<Game, String> {
 
     private final Field keyField;
 
-    public ExtractKeyFn(Field keyField){
+    public ExtractKeyFn(Field keyField) {
         this.keyField = keyField;
     }
 
@@ -26,7 +29,7 @@ public class ExtractKeyFn extends MapFn<Game, String> {
     public String map(final Game input) {
 
         String key = null;
-        switch(keyField){
+        switch (keyField) {
             case PLATFORM:
                 key = input.getPlatform().toString();
                 break;

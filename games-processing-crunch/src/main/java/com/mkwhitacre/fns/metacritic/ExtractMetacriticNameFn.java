@@ -5,6 +5,9 @@ import org.apache.crunch.MapFn;
 
 import java.util.Locale;
 
+/**
+ * Extracts the name of the {@link MetaCriticGame} to serve as a key.
+ */
 public class ExtractMetacriticNameFn extends MapFn<MetaCriticGame, String> {
     @Override
     public String map(final MetaCriticGame input) {

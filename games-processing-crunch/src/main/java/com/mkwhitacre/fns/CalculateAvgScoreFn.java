@@ -30,7 +30,6 @@ public class CalculateAvgScoreFn extends MapFn<Pair<String, Iterable<Game>>, Pai
         for (Game game : input.second()) {
             float score = 0;
 
-            //note a more functional approach would be to have this injected as a function.
             switch (type) {
                 case USER:
                     score = game.getUserScore();

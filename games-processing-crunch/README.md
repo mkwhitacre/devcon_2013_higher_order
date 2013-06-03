@@ -40,11 +40,13 @@ You can use the link provided to watch the progress of the job.
 It will kick off several Jobs but when completed the user will see the output of several calculations in the console as well as the following directories
 created in HDFS
 
-* <output directory>/combined
-* <output directory>/metacritic
-* <output directory>/vgchartz
+* `<output directory>/combined`
+* `<output directory>/metacritic`
+* `<output directory>/vgchartz`
 
 The data in those directories are Avro files that can easily be inputs to new jobs or loaded into other tools like Hive for analysis.
+
+Additionally some calculations are done and the output is displayed to the user in the console.
 
 Cleanup
 -------
@@ -53,10 +55,9 @@ To clean up the newly created table you would use Hadoop FS command to execute t
 
 `hadoop fs -rmr <output directory>`
 
+Stuff to Try
+====================
 
-
-
-
-
-
-hadoop jar /vagrant/games-processing-crunch/target/games-processing-crunch-1.0-SNAPSHOT.jar com.mkwhitacre.Main /example/game_bigdata/game_bigdata/vgchartz.com/data/vgchartz.com_processed /example/game_bigdata/game_bigdata/metacritic.com/data/metacritic.com_processed /example/output
+* Write down your own questions to answer and try to implement them.
+* Change the join to not be an inner join and therefore include partial matches to see how that affects the results.
+* Tweak the Pipeline and see how the generated ["plan"](http://crunch.apache.org/apidocs/0.6.0/org/apache/crunch/impl/mr/MRPipeline.html#plan()) changes.

@@ -1,7 +1,9 @@
 examples-crunch-oozie
 ===============
 
-The purpose of this project is to provide a runnable example of a Crunch processing job that gets executed and launched through [Oozie](http://archive.cloudera.com/cdh4/cdh/4/oozie/index.html).  The workflow is pretty trivial and is intended to be used as an example.  Additionally the example will show not only the [workflow](http://archive.cloudera.com/cdh4/cdh/4/oozie/WorkflowFunctionalSpec.html) part of Oozie but also the [coordination](http://archive.cloudera.com/cdh4/cdh/4/oozie/CoordinatorFunctionalSpec.html) The example is expected to be ran on a [Vagrant](http://www.vagrantup.com/) image which has Oozie installed.
+The purpose of this project is to provide a runnable example of a Crunch processing job that gets executed and launched through [Oozie](http://archive.cloudera.com/cdh4/cdh/4/oozie/index.html).
+The workflow is pretty trivial and is intended to be used as an example.  The example will show a [workflow](http://archive.cloudera.com/cdh4/cdh/4/oozie/WorkflowFunctionalSpec.html) ran through Oozie.
+The example is expected to be ran on a [Vagrant](http://www.vagrantup.com/) image which has Oozie installed.
 
 Building
 ========
@@ -79,3 +81,21 @@ which is used to point to the deployed workflow.
 Oozie has a webui that should be accessible at `http://<oozie-server>:11000/oozie`.  This will allow you to watch the progress of the workflow and the success or failure of the workflow.
 
 
+Verifying the Workflow
+====================
+
+Successful execution of the workflow will produce the following:
+
+* Output directories which are the [same output](https://github.com/mkwhitacre/devcon_2013_higher_order/tree/master/games-processing-crunch#running) as the individual games-processing-crunch job.
+* Raw calculations in the logs
+* [Hive](http://hive.apache.org/) Tables (have fun using Hive to explore this manually)
+** create-vgchartz-table
+** create-metacritic-table
+** create-game-table
+
+Stuff to Try
+====================
+
+* Create a Coordinator Application that will kick off the processing at a regular interval.
+* Change the "prep" stage before the Java action to do something more meaningful like archive previous results.
+* Setup notification in the case of failure or success.

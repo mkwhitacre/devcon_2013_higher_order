@@ -30,7 +30,6 @@ public class CalculateSalesPercentFn extends MapFn<Pair<String, Iterable<Game>>,
             float sales = 0;
             float globalSales = game.getGlobalSales();
 
-            //note a more functional approach would be to have this injected as a function.
             switch(type){
                 case NA_SALES:
                     sales = game.getNaSales();

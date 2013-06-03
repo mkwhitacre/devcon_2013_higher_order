@@ -1,13 +1,9 @@
 package com.mkwhitacre.fns.metacritic;
 
+/**
+ * Simple POJO to make parsing JSON easier.
+ */
 class MetaCriticGamePOJO {
-
-//    {"name": "name", "type": "string", "default": "invalid" },
-//    {"name": "platform", "type": "string", "default": "invalid"},
-//    {"name": "score", "type": "int", "default": -1},
-//    {"name": "user_score", "type":"float", "default": -1}]
-
-//    {"gameName":"Ace Combat: Assault Horizon Legacy","metacriticScore":"71","userScore":"7.7"}
 
     public String gameName;
     public String metacriticScore;

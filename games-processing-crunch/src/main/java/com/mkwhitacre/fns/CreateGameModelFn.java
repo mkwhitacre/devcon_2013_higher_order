@@ -7,6 +7,9 @@ import com.mkwhitacre.avro.VgChartzGame;
 import org.apache.crunch.MapFn;
 import org.apache.crunch.Pair;
 
+/**
+ * Creates an instance of {@link Game} based on the matched {@link MetaCriticGame} and {@link VgChartzGame}.
+ */
 public class CreateGameModelFn extends MapFn<Pair<String, Pair<MetaCriticGame, VgChartzGame>>, Game> {
     private static final long serialVersionUID = -6547821754425879007L;
 
@@ -17,16 +20,16 @@ public class CreateGameModelFn extends MapFn<Pair<String, Pair<MetaCriticGame, V
         VgChartzGame vgGame = input.second().second();
 
         Builder builder = Game.newBuilder();
-        if(mcGame != null){
+        if (mcGame != null) {
             builder.setName(mcGame.getName());
             builder.setScore(mcGame.getScore());
             builder.setUserScore(mcGame.getUserScore());
-        }else{
+        } else {
             getCounter("Game", "missingmcgame").increment(1);
         }
 
-        if(vgGame != null){
-            if(mcGame == null){
+        if (vgGame != null) {
+            if (mcGame == null) {
                 builder.setName(vgGame.getName());
             }
             builder.setPublisher(vgGame.getPublisher());
@@ -39,7 +42,7 @@ public class CreateGameModelFn extends MapFn<Pair<String, Pair<MetaCriticGame, V
             builder.setPlatform(vgGame.getPlatform());
             builder.setPosition(vgGame.getPosition());
             builder.setYear(vgGame.getYear());
-        }else{
+        } else {
             getCounter("Game", "missingvg").increment(1);
         }
 

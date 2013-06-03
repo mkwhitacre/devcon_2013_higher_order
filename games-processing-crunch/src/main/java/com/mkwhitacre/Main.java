@@ -32,6 +32,8 @@ import org.apache.hadoop.util.ToolRunner;
 
 /**
  * Main execution point of the project which kicks off the processing pipeline.
+ *
+ * Review the README documentation on the proper way to execute the {@link #main(String[]) main method}.
  */
 public class Main implements Tool {
 
