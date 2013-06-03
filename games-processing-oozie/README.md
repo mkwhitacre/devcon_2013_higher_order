@@ -89,9 +89,9 @@ Successful execution of the workflow will produce the following:
 * Output directories which are the [same output](https://github.com/mkwhitacre/devcon_2013_higher_order/tree/master/games-processing-crunch#running) as the individual games-processing-crunch job.
 * Raw calculations in the logs
 * [Hive](http://hive.apache.org/) Tables (have fun using Hive to explore this manually)
-** create-vgchartz-table
-** create-metacritic-table
-** create-game-table
+ * create-vgchartz-table
+ * create-metacritic-table
+ * create-game-table
 
 Stuff to Try
 ====================
